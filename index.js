@@ -15255,7 +15255,10 @@ let fscore = 0;
 let ended = false;
 let playerName = "Max";
 let ballimg1, ballimg2, ballimg3;
+let gameState = 0;
+let startTime = 0;
 
+let input, button, greeting;
 
 window.preload = () => {
   ballimg1 = loadImage("ball2.png");
@@ -15303,14 +15306,25 @@ window.setup = () => {
   topper.x = cW/2;
   topper.w = cW;
   topper.collider = 'static';
-
   newHoop();
+
+  // INPUT START SCREEN
+  input = createInput();
+  input.position(cW/2, cH/2);
+
+  button = createButton('start');
+  button.position(input.x + input.width, cH/2);
+  button.mousePressed(startGame);
+
+  greeting = createElement('h2', 'what is your name?');
+  greeting.position(cW/2, cH/2 - 50);
+  noLoop();
 };
 
 window.draw = () => {
   clear();
 
-  let secs = millis() / 1000;
+  let secs = (millis() - startTime) / 1000;
   secs = int(secs);
 
   if(mouse.pressing()) {
@@ -15341,8 +15355,6 @@ window.draw = () => {
   text('Score: ' + score, 20, 55);
   textSize(32);
   text('Shots: ' + shots, 20, 90);
-
-  
 
   //end condition!
   if (secs >= 60){
@@ -15375,11 +15387,13 @@ window.mousePressed = () => {
 
 //onmouseup
 window.mouseReleased = () => {
-  clickx2 = mouseX;
-  clicky2 = mouseY;
-  ball.vel.x += (clickx1 - clickx2) / velCalmer;
-  ball.vel.y += (clicky1 - clicky2) / velCalmer;
-  shots += 1;
+  if(gameState == 1){
+    clickx2 = mouseX;
+    clicky2 = mouseY;
+    ball.vel.x += (clickx1 - clickx2) / velCalmer;
+    ball.vel.y += (clicky1 - clicky2) / velCalmer;
+    shots += 1;
+  }
 };
 
 function newHoop() {
@@ -15433,4 +15447,15 @@ function displayScores(){
     text(ele.uname + '\t\t\t\t' + ele.score + '\t\t\t\t' + ele.shots, cW - 30, yVal += 20);
     
   });
+}
+
+function startGame(){
+  console.log(input.value());
+  playerName = input.value();
+  startTime = millis();
+  input.remove();
+  greeting.remove();
+  button.remove();
+  gameState = 1;
+  loop();
 }
