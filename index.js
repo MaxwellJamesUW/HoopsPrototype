@@ -1,20 +1,21 @@
- // Import the functions you need from the SDKs you need
- import { initializeApp } from "firebase/app";
- import { getFirestore, collection, addDoc } from "firebase/firestore";
- 
- 
- // Your web app's Firebase configuration
- const firebaseConfig = {
-   apiKey: "AIzaSyAhIdCSm1whfXX9cx37RT86RzZ2vjNGImU",
-   authDomain: "hoopsgame-d9b0d.firebaseapp.com",
-   projectId: "hoopsgame-d9b0d",
-   storageBucket: "hoopsgame-d9b0d.appspot.com",
-   messagingSenderId: "950448497015",
-   appId: "1:950448497015:web:dcb575137f8eba69268172"
- };
- 
- // Initialize Firebase app
- const app = initializeApp(firebaseConfig);
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getFirestore, collection, addDoc } from "firebase/firestore";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyAhIdCSm1whfXX9cx37RT86RzZ2vjNGImU",
+  authDomain: "hoopsgame-d9b0d.firebaseapp.com",
+  projectId: "hoopsgame-d9b0d",
+  storageBucket: "hoopsgame-d9b0d.appspot.com",
+  messagingSenderId: "950448497015",
+  appId: "1:950448497015:web:4207da9d6f9957f5268172"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
  //Initialize Firebase database
  const db = getFirestore(app);
  
