@@ -34,7 +34,7 @@ let ball, floor, lwall, rwall, topper;
 let cW, cH;
 let clickx1, clicky1, clickx2, clicky2;
 let hoopl, hoopr;
-let velCalmer = 20;
+let velCalmer = 18;
 let shots = 0;
 let fshots = 0;
 let score = 0;
@@ -42,6 +42,7 @@ let fscore = 0;
 let ended = false;
 let playerName = "Max";
 let ballimg1, ballimg2, ballimg3;
+let activeScreen = 0;
 
 
 window.preload = () => {
@@ -96,6 +97,10 @@ window.setup = () => {
 
 window.draw = () => {
   clear();
+  if(activeScreen === 0){
+    //  START SCREEN
+
+  }
 
   let secs = millis() / 1000;
   secs = int(secs);
@@ -140,8 +145,9 @@ window.draw = () => {
         sendScore();
         ended = true;
         getScores();
+        
     }
-    
+    displayScores();
     if (fscore === 1){
       text('You scored just ' + fscore + " basket\n in 60 seconds!", cW/2, cH/2);
     } else {
@@ -209,4 +215,14 @@ async function getScores() {
     //render(view(), document.body);
   }
   
-
+function displayScores(){
+  textAlign(RIGHT);
+  textSize(20);
+  text("HIGH SCORES", cW - 20, 30);
+  text("Name\tScore\tShots", cW - 20, 50)
+  let yVal = 55;
+  hiScores.forEach(ele => {
+    text(ele.uname + '\t\t\t\t' + ele.score + '\t\t\t\t' + ele.shots, cW - 30, yVal += 20);
+    
+  });
+}
