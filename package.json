@@ -1,14 +1,17 @@
 {
   "devDependencies": {
+    "@rollup/plugin-node-resolve": "^15.0.1",
     "gh-pages": "^5.0.0",
+    "rollup": "^3.18.0",
+    "rollup-plugin-copy": "^3.4.0",
     "vite": "^4.1.4"
   },
   "scripts": {
     "start": "vite",
     "host": "vite --host",
-    "build": "vite build ",
+    "build": "rollup --config",
     "preview": "vite preview",
-    "deploy": "vite build && gh-pages -d dist"
+    "deploy": "npm run build && gh-pages -d dist"
   },
   "repository": {
     "type": "git",
@@ -16,5 +19,7 @@
   },
   "dependencies": {
     "firebase": "^9.17.1"
-  }
+  },
+  "main": "index.js",
+  "type": "module"
 }
