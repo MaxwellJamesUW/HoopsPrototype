@@ -15267,8 +15267,12 @@ window.preload = () => {
 };
 
 window.setup = () => {
+  /*
   cW = windowWidth;
   cH = windowHeight;
+  */
+ cW = 600;
+ cH = 800;
   new Canvas(cW, cH);
   world.gravity.y = 10;
 
@@ -15284,6 +15288,8 @@ window.setup = () => {
   floor.y = cH-5;
   floor.w = cW;
   floor.h = 10;
+  floor.color = color(255, 203, 19);
+  floor.stroke = color(255, 240, 60);
   floor.collider = 'static';
 
   lwall = new Sprite();
@@ -15291,6 +15297,8 @@ window.setup = () => {
   lwall.x = 5;
   lwall.w = 10;
   lwall.h = cH;
+  lwall.color = color(255, 203, 19);
+  lwall.stroke = color(255, 240, 60);
   lwall.collider = 'static';
 
   rwall = new Sprite();
@@ -15298,6 +15306,8 @@ window.setup = () => {
   rwall.x = cW - 5;
   rwall.w = 10;
   rwall.h = cH;
+  rwall.color = color(255, 203, 19);
+  rwall.stroke = color(255, 240, 60);
   rwall.collider = 'static';
 
   topper = new Sprite();
@@ -15305,30 +15315,65 @@ window.setup = () => {
   topper.h = 10;
   topper.x = cW/2;
   topper.w = cW;
+  topper.color = color(255, 203, 19);
+  topper.stroke = color(255, 240, 60);
   topper.collider = 'static';
   newHoop();
 
   // INPUT START SCREEN
+
   input = createInput();
-  input.position(cW/2, cH/2);
+  input.position(cW/2 - 135, cH - 200);
+  input.style('height', '60px');
 
   button = createButton('start');
-  button.position(input.x + input.width, cH/2);
+  button.position(input.x + input.width, cH - 200);
+  button.style('height', '60px');
+  button.style('width','100px');
+  button.style('font-size', '20px');
   button.mousePressed(startGame);
 
   greeting = createElement('h2', 'what is your name?');
-  greeting.position(cW/2, cH/2 - 50);
+  greeting.style('text-align','center');
+  greeting.style('display', 'block');
+  greeting.style('font-family','Verdana, Arial, sans-serif');
+  greeting.position(cW/2 - 130, cH/2 + 100);
   noLoop();
 };
 
 window.draw = () => {
   clear();
+  background(20);
 
   let secs = (millis() - startTime) / 1000;
   secs = int(secs);
 
+  //backdrop for the start screen
+  if(gameState == 0){
+    fill(245);
+    rectMode(CENTER);
+    rect(cW/2, cH/2 + 50, 500, 600, 0,0,8,8);
+  }
+
   if(mouse.pressing()) {
+    let power = dist(clickx1, clicky1, mouse.x, mouse.y);
+    strokeWeight(3);
+    if(power > 450){
+      stroke(227, 19, 102);
+    } else {
+    if(power > 325){
+      stroke(255, 65, 77);
+    } else {
+    if(power > 150){
+      stroke(255, 134, 48);
+    } else {
+    stroke(255, 203, 19);
+    }
+  }
+}
+
     line(clickx1, clicky1, mouse.x, mouse.y);
+
     ball.changeAni('distressed');
   } else {
     ball.changeAni('baseline');
@@ -15352,6 +15397,7 @@ window.draw = () => {
   }
   textAlign(LEFT);
   textSize(40);
+  strokeWeight(0);
   text('Score: ' + score, 20, 55);
   textSize(32);
   text('Shots: ' + shots, 20, 90);
@@ -15383,10 +15429,12 @@ window.draw = () => {
 window.mousePressed = () => {
   clickx1 = mouseX;
   clicky1 = mouseY;
+  //shots += 1;
 };
 
 //onmouseup
 window.mouseReleased = () => {
+  //if game is playing, shoot the ball and increment shots
   if(gameState == 1){
     clickx2 = mouseX;
     clicky2 = mouseY;
@@ -15399,13 +15447,18 @@ window.mouseReleased = () => {
 function newHoop() {
   let hx = random(100, cW - 100);
   let hy = random(150, 350);
-  hoopl = new Sprite(hx, hy, 5, 35);
-  hoopl.rotation = -15;
+  hoopl = new Sprite(hx, hy, 8, 38);
+  hoopl.rotation = -13;
   hoopl.collider = 'static';
 
-  hoopr = new Sprite(hx+55, hy, 5, 35);
-  hoopr.rotation = 15;
+  hoopr = new Sprite(hx+57, hy, 8, 38);
+  hoopr.rotation = 13;
   hoopr.collider = 'static';
+
+  hoopl.color = color(227, 19, 102);
+  hoopl.stroke = color(255, 220, 250);
+  hoopr.color = color(227, 19, 102);
+  hoopr.stroke = color(255,220,250);
 
 }
 
@@ -15457,5 +15510,6 @@ function startGame(){
   greeting.remove();
   button.remove();
   gameState = 1;
+
   loop();
 }
