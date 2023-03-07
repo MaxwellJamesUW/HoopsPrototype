@@ -15320,25 +15320,7 @@ window.setup = () => {
   topper.collider = 'static';
   newHoop();
 
-  // INPUT START SCREEN
-
-  input = createInput();
-  input.position(cW/2 - 135, cH - 200);
-  input.style('height', '60px');
-
-  button = createButton('start');
-  button.position(input.x + input.width, cH - 200);
-  button.style('height', '60px');
-  button.style('width','100px');
-  button.style('font-size', '20px');
-  button.mousePressed(startGame);
-
-  greeting = createElement('h2', 'what is your name?');
-  greeting.style('text-align','center');
-  greeting.style('display', 'block');
-  greeting.style('font-family','Verdana, Arial, sans-serif');
-  greeting.position(cW/2 - 130, cH/2 + 100);
-  noLoop();
+  setupGame();
 };
 
 window.draw = () => {
@@ -15443,6 +15425,14 @@ window.mouseReleased = () => {
     shots += 1;
   }
 };
+/*
+window.keyPressed = () => {
+  if(key == "r"){
+    console.log("R PRESSED");
+    setupGame();
+  }
+}
+*/
 
 function newHoop() {
   let hx = random(100, cW - 100);
@@ -15512,4 +15502,30 @@ function startGame(){
   gameState = 1;
 
   loop();
+}
+
+function setupGame(){
+  // INPUT START SCREEN
+  shots = 0;
+  score = 0;
+  ended = false;
+  gameState = 0;
+
+  input = createInput();
+  input.position(cW/2 - 135, cH - 200);
+  input.style('height', '60px');
+
+  button = createButton('start');
+  button.position(input.x + input.width, cH - 200);
+  button.style('height', '60px');
+  button.style('width','100px');
+  button.style('font-size', '20px');
+  button.mousePressed(startGame);
+
+  greeting = createElement('h2', 'what is your name?');
+  greeting.style('text-align','center');
+  greeting.style('display', 'block');
+  greeting.style('font-family','Verdana, Arial, sans-serif');
+  greeting.position(cW/2 - 130, cH/2 + 100);
+  noLoop();
 }
