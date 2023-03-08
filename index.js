@@ -67,8 +67,8 @@ window.setup = () => {
   ball.diameter = 50;
   ball.y =  cH - 60;
   ball.bounciness = 0.7;
-  ball.addAni('distressed', ballimg2);
-  ball.addAni('baseline', ballimg1);
+  ball.addAni('distressed', ballimg1);
+  ball.addAni('baseline', ballimg2);
   ball.addAni('done', ballimg3);
   
   floor = new Sprite();
@@ -271,7 +271,7 @@ function displayScores(){
   textAlign(RIGHT);
   textSize(20);
   text("HIGH SCORES", cW - 20, 30);
-  text("Name\tScore\tShots", cW - 20, 50)
+  text("Name\tScore\tShots", cW - 20, 50);
   let yVal = 55;
   hiScores.forEach(ele => {
     text(ele.uname + '\t\t\t\t' + ele.score + '\t\t\t\t' + ele.shots, cW - 30, yVal += 20);
