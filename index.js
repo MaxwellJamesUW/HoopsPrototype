@@ -15280,8 +15280,8 @@ window.setup = () => {
   ball.diameter = 50;
   ball.y =  cH - 60;
   ball.bounciness = 0.7;
-  ball.addAni('distressed', ballimg2);
-  ball.addAni('baseline', ballimg1);
+  ball.addAni('distressed', ballimg1);
+  ball.addAni('baseline', ballimg2);
   ball.addAni('done', ballimg3);
   
   floor = new Sprite();
